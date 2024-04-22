@@ -1,0 +1,46 @@
+﻿@model KontrolaLotow.Models.ViewModels.RegisterModel
+@{
+}
+
+<div class="loginContainer">
+
+    <div class="loginForm">
+
+        <form method="post" asp-controller="Register" asp-action="RegisterVerification">
+
+            <div>
+                <label asp-for="@Model.Username"></label>
+                <input type="text" asp-for="@Model.Username" />
+                <span asp-validation-for="@Model.Username"></span>
+            </div>
+
+            <div>
+                <label asp-for="@Model.Email"></label>
+                <input type="email" asp-for="@Model.Email" />
+                <span asp-validation-for="@Model.Email"></span>
+            </div>
+
+            <div>
+                <label asp-for="@Model.Login"></label>
+                <input type="text" asp-for="@Model.Login" />
+                <span asp-validation-for="@Model.Login"></span>
+            </div>
+
+            <div>
+                <label asp-for="@Model.Password"></label>
+                <input type="password" asp-for="@Model.Password" />
+                <span asp-validation-for="@Model.Password"></span>
+            </div>
+
+            <div>
+                <label asp-for="@Model.ConfirmPassword"></label>
+                <input type="password" asp-for="@Model.ConfirmPassword" />
+                <span asp-validation-for="@Model.ConfirmPassword"></span>
+            </div>
+
+            <button class="loginButton" type="submit">Register</button>
+
+        </form>
+
+    </div>
+</div>

@@ -1,0 +1,22 @@
+﻿@{
+}
+
+<div class="loginContainer">
+
+    <div class="loginForm">
+
+        <form method="post" asp-controller="Register" asp-action="LoginVerification">
+
+            <label>Wpisz login:</label>
+            <input type="text" name="login" />
+
+            <label>Wpisz hasło:</label>
+            <input type="password" name="password" />
+            <button class="loginButton" type="submit">Log in</button>
+        </form>
+
+        <a href="Register/Register">Register here</a>
+
+    </div>
+
+</div>

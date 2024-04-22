@@ -1,0 +1,33 @@
+﻿@model KontrolaLotow.Models.Flight
+
+<h2>Edytuj lot</h2>
+
+<form asp-controller="Flights" asp-action="ChangeFlight" method="post">
+    <input type="hidden" asp-for="IdLotu" />
+    <div class="form-group">
+        <label asp-for="NumerLotu">Numer lotu:</label>
+        <input asp-for="NumerLotu" class="form-control" required>
+        <span asp-validation-for="NumerLotu" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DataWylotu">Data wylotu:</label>
+        <input asp-for="DataWylotu" class="form-control" type="datetime-local" required>
+        <span asp-validation-for="DataWylotu" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="MiejsceWylotu">Miejsce wylotu:</label>
+        <input asp-for="MiejsceWylotu" class="form-control" required>
+        <span asp-validation-for="MiejsceWylotu" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="MiejscePrzylotu">Miejsce przylotu:</label>
+        <input asp-for="MiejscePrzylotu" class="form-control" required>
+        <span asp-validation-for="MiejscePrzylotu" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="TypSamolotu">Typ samolotu:</label>
+        <input asp-for="TypSamolotu" class="form-control" required>
+        <span asp-validation-for="TypSamolotu" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+</form>

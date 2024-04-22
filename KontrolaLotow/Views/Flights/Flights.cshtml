@@ -1,0 +1,90 @@
+﻿@model List<KontrolaLotow.Models.Flight>
+
+<div class="row">
+    <div class="col-md-8">
+        <h2 style="text-align: center">Rozkład lotów:</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Numer lotu</th>
+                    <th>Data wylotu</th>
+                    <th>Miejsce wylotu</th>
+                    <th>Miejsce przylotu</th>
+                    <th>Typ samolotu</th>
+                    @if (ViewBag.UserRole == "admin")
+                    {
+                        <th>Akcje</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var flight in Model)
+                {
+                    <tr>
+                        <td>
+                            @if (ViewBag.UserRole == "admin" || ViewBag.UserRole == "user")
+                            {
+                                <a asp-controller="Flights" asp-action="Details" asp-route-id="@flight.IdLotu">@flight.NumerLotu</a>
+                            }
+                            else
+                            {
+                                @flight.NumerLotu
+                            }
+                        </td>
+                        <td>@flight.DataWylotu</td>
+                        <td>@flight.MiejsceWylotu</td>
+                        <td>@flight.MiejscePrzylotu</td>
+                        <td>@flight.TypSamolotu</td>
+                        <td>
+                            @if (ViewBag.UserRole == "admin")
+                            {
+                                <form method="post" asp-controller="Flights" asp-action="DeleteFlight">
+                                    <input type="hidden" name="id" value="@flight.IdLotu" />
+                                    <button type="submit" class="btn btn-danger">Usuń</button>
+                                </form>
+
+                                <form method="post" asp-controller="Flights" asp-action="EditFlight">
+                                    <input type="hidden" name="id" value="@flight.IdLotu" />
+                                    <button type="submit" class="btn btn-primary">Edytuj</button>
+                                </form>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    @if (ViewBag.UserRole == "admin")
+    {
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Dodaj nowy lot</h3>
+                    <form asp-controller="Flights" asp-action="CreateFlight">
+                        <div class="form-group">
+                            <label for="numerLotu">Numer lotu:</label>
+                            <input type="text" class="form-control" id="numerLotu" name="NumerLotu" placeholder="Wprowadź numer lotu" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dataWylotu">Data wylotu:</label>
+                            <input type="datetime-local" class="form-control" id="dataWylotu" name="DataWylotu" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="miejsceWylotu">Miejsce wylotu:</label>
+                            <input type="text" class="form-control" id="miejsceWylotu" name="MiejsceWylotu" placeholder="Wprowadź miejsce wylotu" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="miejscePrzylotu">Miejsce przylotu:</label>
+                            <input type="text" class="form-control" id="miejscePrzylotu" name="MiejscePrzylotu" placeholder="Wprowadź miejsce przylotu" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="typSamolotu">Typ samolotu:</label>
+                            <input type="text" class="form-control" id="typSamolotu" name="TypSamolotu" placeholder="Wprowadź typ samolotu" required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Dodaj lot</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>
