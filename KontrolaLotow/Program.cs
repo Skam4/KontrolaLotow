@@ -1,4 +1,8 @@
+using KontrolaLotow.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -9,6 +13,10 @@ builder.Services.AddControllersWithViews();
 
 //builder.Services.AddAuthentication().AddJwtBearer();
 //builder.Services.AddAuthorization();
+
+builder.Services.AddDbContext<BazaLotowContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 builder.Services.AddAuthentication(options =>
 {
@@ -28,7 +36,6 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes
             (builder.Configuration.GetSection("Jwt:Key").Value))
     };
-
 });
 
 var app = builder.Build();

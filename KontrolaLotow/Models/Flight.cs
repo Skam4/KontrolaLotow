@@ -8,7 +8,7 @@ namespace KontrolaLotow.Models
         public int IdLotu { get; set; }
 
         [Required(ErrorMessage = "Numer lotu jest wymagany.")]
-        public int NumerLotu { get; set; }
+        public string NumerLotu { get; set; }
 
         [Required(ErrorMessage = "Data wylotu jest wymagana.")]
         public DateTime DataWylotu { get; set; }

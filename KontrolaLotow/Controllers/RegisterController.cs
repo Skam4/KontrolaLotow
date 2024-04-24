@@ -15,13 +15,19 @@ namespace KontrolaLotow.Controllers
     public class RegisterController : Controller
     {
 
-        BazaLotow DataBase = new BazaLotow();
+        BazaLotowContext DataBase = new BazaLotowContext();
 
         private readonly IConfiguration _configuration;
 
-        public RegisterController(IConfiguration configuration)
+/*        public RegisterController(IConfiguration configuration)
         {
             _configuration = configuration;
+        }*/
+
+        public RegisterController(BazaLotowContext dataBase)
+        {
+            DataBase = dataBase;
+            _configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
         }
 
         //Go to register site
@@ -93,24 +99,29 @@ namespace KontrolaLotow.Controllers
             {
                 return View("Register", Model);
             }
-
-            var existingUsername = DataBase.Users.FirstOrDefault(v => v.UserName == Model.Username);
-            var existingLogin = DataBase.Users.FirstOrDefault(v => v.Login == Model.Login);
-            var existingEmail = DataBase.Users.FirstOrDefault(v => v.Email == Model.Email);
-
-            if (existingLogin != null)
+            if(ModelState.IsValid) 
             {
-                ModelState.AddModelError("Login", "Ten login już istnieje.");
-            }
+                var existingUsername = DataBase.Users.FirstOrDefault(v => v.UserName == Model.Username);
+                var existingLogin = DataBase.Users.FirstOrDefault(v => v.Login == Model.Login);
+                var existingEmail = DataBase.Users.FirstOrDefault(v => v.Email == Model.Email);
 
-            if (existingUsername != null)
-            {
-                ModelState.AddModelError("Username", "Ta nazwa użytkownika już istnieje.");
-            }
+                if (existingLogin != null)
+                {
+                    ModelState.AddModelError("Login", "Ten login już istnieje.");
+                    return View("Register", Model);
+                }
 
-            if (existingEmail != null)
-            {
-                ModelState.AddModelError("Email", "Ten email już istnieje w bazie.");
+                if (existingUsername != null)
+                {
+                    ModelState.AddModelError("Username", "Ta nazwa użytkownika już istnieje.");
+                    return View("Register", Model);
+                }
+
+                if (existingEmail != null)
+                {
+                    ModelState.AddModelError("Email", "Ten email już istnieje w bazie.");
+                    return View("Register", Model);
+                }
             }
 
             //Creating new user

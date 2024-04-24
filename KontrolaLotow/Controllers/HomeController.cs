@@ -11,11 +11,17 @@ namespace KontrolaLotow.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        BazaLotow DataBase = new BazaLotow();
-        public HomeController(ILogger<HomeController> logger)
+        public BazaLotowContext DataBase = new BazaLotowContext();
+        public HomeController(ILogger<HomeController> logger, BazaLotowContext dataBase)
         {
             _logger = logger;
+            DataBase = dataBase;
         }
+
+        /*        public HomeController(ILogger<HomeController> logger)
+                {
+                    _logger = logger;
+                }*/
 
         public IActionResult Index()
         {
@@ -39,7 +45,7 @@ namespace KontrolaLotow.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        private void PreliminaryData()
+        public void PreliminaryData()
         {
             //if admin role does not exists, create admin role
             if (DataBase.Roles.FirstOrDefault(v => v.RoleName == "admin") == null)

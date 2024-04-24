@@ -10,12 +10,15 @@ namespace KontrolaLotow.Controllers
     public class FlightsController : Controller
     {
 
-        BazaLotow DataBase = new BazaLotow();
+        BazaLotowContext DataBase = new BazaLotowContext();
+
+        public FlightsController(BazaLotowContext dataBase)
+        {
+            DataBase = dataBase;
+        }
 
         public IActionResult Flights()
         {
-
-
             var allFlights = DataBase.Flights.ToList();
 
             var userRole = HttpContext.Request.Cookies["JWTToken"] != null ? GetRoleFromToken(HttpContext.Request.Cookies["JWTToken"]) : null;
@@ -65,6 +68,7 @@ namespace KontrolaLotow.Controllers
             {
                 return RedirectToAction("Flights");
             }
+
             return View(flight);
         }
 
@@ -85,6 +89,16 @@ namespace KontrolaLotow.Controllers
             {
                 return RedirectToAction("Flights");
             }
+
+            bool ifLogged = Request.Cookies.ContainsKey("JWTToken");
+
+            ViewBag.IfLogged = ifLogged;
+
+            if(ifLogged == false) 
+            {
+                return RedirectToAction("Login", "Register");
+            }
+
             return View(flight);
         }
 

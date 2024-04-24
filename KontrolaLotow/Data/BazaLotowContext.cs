@@ -3,8 +3,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KontrolaLotow.Data
 {
-    public class BazaLotow : DbContext
+    public class BazaLotowContext : DbContext
     {
+        public BazaLotowContext()
+        {
+        }
+
+        public BazaLotowContext(DbContextOptions<BazaLotowContext> options) : base(options)
+        {
+        }
 
         public DbSet<Flight> Flights { get; set; }
         public DbSet<User> Users { get; set; }

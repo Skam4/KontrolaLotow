@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KontrolaLotow.Migrations
 {
-    [DbContext(typeof(BazaLotow))]
+    [DbContext(typeof(BazaLotowContext))]
     [Migration("20240422204222_Migration4")]
     partial class Migration4
     {
